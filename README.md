@@ -1,9 +1,9 @@
 # Laravel React Datatable
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hamidrrj/laravel-datatable.svg?style=flat-square)](https://packagist.org/packages/hamidrrj/laravel-datatable)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/hamidrrj/laravel-datatable/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/hamidrrj/laravel-datatable/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/hamidrrj/laravel-datatable/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/hamidrrj/laravel-datatable/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/hamidrrj/laravel-datatable.svg?style=flat-square)](https://packagist.org/packages/hamidrrj/laravel-datatable)
 
 This package is implemented for dealing with Material React Table queries.
 It contains various search logics for different datatypes (numeric, text, date):
@@ -21,20 +21,20 @@ You can add custom your own search logic and datatype with ease :)
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require hamidrrj/laravel-datatable
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
+php artisan vendor:publish --tag="laravel-datatable-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="laravel-datatable-config"
 ```
 
 This is the contents of the published config file:
@@ -47,14 +47,14 @@ return [
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-views"
+php artisan vendor:publish --tag="laravel-datatable-views"
 ```
 
 ## Usage
 
 ```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+$laravelDatatable = new HamidRrj\LaravelDatatable();
+echo $laravelDatatable->echoPhrase('Hello, HamidRrj!');
 ```
 
 ## Testing
@@ -77,7 +77,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Hamidreza Ranjbarpour](https://github.com/hamidrezaRanjbarpour)
 - [All Contributors](../../contributors)
 
 ## License
