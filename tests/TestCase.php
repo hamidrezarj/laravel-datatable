@@ -2,9 +2,9 @@
 
 namespace HamidRrj\LaravelDatatable\Tests;
 
+use HamidRrj\LaravelDatatable\LaravelDatatableServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use HamidRrj\LaravelDatatable\LaravelDatatableServiceProvider;
 
 class TestCase extends Orchestra
 {
