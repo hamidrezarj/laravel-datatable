@@ -8,7 +8,7 @@ class InvalidRelationException extends Exception implements InvalidParameterInte
 {
     protected $fieldName;
 
-    public function __construct($fieldName, $message = "", $code = 400, \Throwable $previous = null)
+    public function __construct($fieldName, $message = '', $code = 400, ?\Throwable $previous = null)
     {
         $this->fieldName = $fieldName;
         parent::__construct($message, $code, $previous);

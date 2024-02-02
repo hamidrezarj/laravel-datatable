@@ -6,7 +6,6 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 class FilterNotEquals extends SearchFilter
 {
-
     public function apply(): Builder
     {
         $column = $this->filter->getId();

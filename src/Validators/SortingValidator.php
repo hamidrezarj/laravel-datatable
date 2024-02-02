@@ -15,7 +15,7 @@ class SortingValidator
 
     public static function getInstance(): SortingValidator
     {
-        if (!isset(self::$instance)) {
+        if (! isset(self::$instance)) {
             self::$instance = new static();
         }
 
@@ -24,7 +24,7 @@ class SortingValidator
 
     public function isValid(Sort $sorting, array $allowedSortings): bool
     {
-        if (!$this->isAllowed($sorting, $allowedSortings)) {
+        if (! $this->isAllowed($sorting, $allowedSortings)) {
             $sortId = $sorting->getId();
             throw new InvalidSortingException($sortId, "sorting field `$sortId` is not allowed.");
         }

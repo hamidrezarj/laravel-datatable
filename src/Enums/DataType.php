@@ -1,6 +1,7 @@
 <?php
 
 namespace HamidRrj\LaravelDatatable\Enums;
+
 enum DataType: string
 {
     case NUMERIC = 'numeric';
@@ -9,6 +10,6 @@ enum DataType: string
 
     public static function values(): array
     {
-       return array_column(self::cases(), 'value');
+        return array_column(self::cases(), 'value');
     }
 }

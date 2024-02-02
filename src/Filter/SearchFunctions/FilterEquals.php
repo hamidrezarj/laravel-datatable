@@ -7,7 +7,6 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 class FilterEquals extends SearchFilter
 {
-
     public function apply(): Builder
     {
         $column = $this->filter->getId();
@@ -25,6 +24,7 @@ class FilterEquals extends SearchFilter
     private function searchIgnoreCase(string $column, string $value): Builder
     {
         $value = strtolower($value);
+
         return $this->query->whereRaw("LOWER($column) = ?", [$value]);
     }
 }

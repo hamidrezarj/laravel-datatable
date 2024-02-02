@@ -17,15 +17,10 @@ class ApplyFilter
 {
     private SearchFilter $searchFilter;
 
-    /**
-     * @param Builder $query
-     * @param Filter $filter
-     */
     public function __construct(
         private Builder $query,
-        private Filter  $filter,
-    )
-    {
+        private Filter $filter,
+    ) {
     }
 
     public function apply(): Builder
@@ -62,10 +57,10 @@ class ApplyFilter
             default:
                 $searchFunction = $filter->getFn();
                 throw new InvalidFilterException($searchFunction, "search function `$searchFunction` is invalid.");
-
         }
 
         $relation = $this->filter->getRelation();
+
         return $relation ? $this->applyFilterToRelation($relation) : $this->searchFilter->apply();
     }
 

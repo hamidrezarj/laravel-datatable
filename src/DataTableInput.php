@@ -7,23 +7,15 @@ use HamidRrj\LaravelDatatable\Sort\Sort;
 
 class DataTableInput
 {
-    /**
-     * @param int $start
-     * @param int $size
-     * @param array $filters
-     * @param array $sorting
-     * @param array $rels
-     */
     public function __construct(
-        private int   $start,
-        private ?int   $size,
+        private int $start,
+        private ?int $size,
         private array $filters,
         private array $sorting,
         private array $rels,
         private array $allowedFilters,
         private array $allowedSortings,
-    )
-    {
+    ) {
     }
 
     public function getStart(): int
@@ -41,7 +33,7 @@ class DataTableInput
      */
     public function getFilters(): array
     {
-        $filters = array();
+        $filters = [];
 
         foreach ($this->filters as $filter) {
             $filters[] = new Filter(
@@ -56,12 +48,9 @@ class DataTableInput
         return $filters;
     }
 
-    /**
-     * @return Sort|null
-     */
     public function getSorting(): ?Sort
     {
-        return !empty($this->sorting) ?
+        return ! empty($this->sorting) ?
             new Sort($this->sorting[0]->id, $this->sorting[0]->desc, $this->allowedSortings) : null;
     }
 
@@ -69,6 +58,4 @@ class DataTableInput
     {
         return $this->rels;
     }
-
-
 }
