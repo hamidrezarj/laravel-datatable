@@ -6,7 +6,7 @@ use HamidRrj\LaravelDatatable\Filter\ApplyFilter;
 use HamidRrj\LaravelDatatable\Sort\ApplySort;
 use Illuminate\Contracts\Database\Query\Builder;
 
-class DataTableService
+class DatatableService
 {
 
     protected array $allowedFilters;
@@ -17,30 +17,30 @@ class DataTableService
 
     public function __construct(
         protected Builder      $query,
-        private DataTableInput $dataTableInput
+        private DatatableInput $dataTableInput
     )
     {
     }
 
-    public function setAllowedFilters(array $allowedFilters): DataTableService
+    public function setAllowedFilters(array $allowedFilters): DatatableService
     {
         $this->allowedFilters = $allowedFilters;
         return $this;
     }
 
-    public function setAllowedRelations(array $allowedRelations): DataTableService
+    public function setAllowedRelations(array $allowedRelations): DatatableService
     {
         $this->allowedRelations = $allowedRelations;
         return $this;
     }
 
-    public function setAllowedSortings(array $allowedSortings): DataTableService
+    public function setAllowedSortings(array $allowedSortings): DatatableService
     {
         $this->allowedSortings = $allowedSortings;
         return $this;
     }
 
-    public function setAllowedSelects(array $allowedSelects): DataTableService
+    public function setAllowedSelects(array $allowedSelects): DatatableService
     {
         $this->allowedSelects = $allowedSelects;
         return $this;

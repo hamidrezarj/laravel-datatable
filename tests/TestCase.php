@@ -2,7 +2,7 @@
 
 namespace HamidRrj\LaravelDatatable\Tests;
 
-use HamidRrj\LaravelDatatable\LaravelDatatableServiceProvider;
+use HamidRrj\LaravelDatatable\DatatableServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -20,7 +20,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            LaravelDatatableServiceProvider::class,
+            DatatableServiceProvider::class,
         ];
     }
 
@@ -28,9 +28,9 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_laravel-datatable_table.php.stub';
+
+        $migration = include __DIR__.'/../database/migrations/create_users_table.php.stub';
         $migration->up();
-        */
+
     }
 }

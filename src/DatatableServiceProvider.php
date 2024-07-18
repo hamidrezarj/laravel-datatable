@@ -6,7 +6,7 @@ use HamidRrj\LaravelDatatable\Commands\LaravelDatatableCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LaravelDatatableServiceProvider extends PackageServiceProvider
+class DatatableServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -17,9 +17,6 @@ class LaravelDatatableServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-datatable')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-datatable_table')
-            ->hasCommand(LaravelDatatableCommand::class);
+            ->hasConfigFile();
     }
 }

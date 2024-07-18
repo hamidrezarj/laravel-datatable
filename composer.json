@@ -72,10 +72,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "HamidRrj\\LaravelDatatable\\LaravelDatatableServiceProvider"
+                "HamidRrj\\LaravelDatatable\\DatatableServiceProvider"
             ],
             "aliases": {
-                "LaravelDatatable": "HamidRrj\\LaravelDatatable\\Facades\\LaravelDatatable"
+                "LaravelDatatable": "HamidRrj\\LaravelDatatable\\Facades\\DatatableFacade"
             }
         }
     },

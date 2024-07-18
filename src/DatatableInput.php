@@ -5,7 +5,7 @@ namespace HamidRrj\LaravelDatatable;
 use HamidRrj\LaravelDatatable\Filter\Filter;
 use HamidRrj\LaravelDatatable\Sort\Sort;
 
-class DataTableInput
+class DatatableInput
 {
     /**
      * @param int $start

@@ -2,6 +2,7 @@
 
 namespace HamidRrj\LaravelDatatable\Sort;
 
+use HamidRrj\LaravelDatatable\Exceptions\InvalidSortingException;
 use HamidRrj\LaravelDatatable\Validators\SortingValidator;
 
 class Sort
@@ -12,7 +13,7 @@ class Sort
      * @param string $id
      * @param bool $desc
      * @param array $allowedSortings
-     * @throws \HamidRrj\LaravelDatatable\Exceptions\InvalidSortingException
+     * @throws InvalidSortingException
      */
     public function __construct(
         private string $id,

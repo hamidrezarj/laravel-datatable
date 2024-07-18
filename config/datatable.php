@@ -1,6 +1,6 @@
 <?php
 
-// config for HamidRrj/LaravelDatatable
+// config for HamidRrj/DatatableFacade
 return [
 
 ];
