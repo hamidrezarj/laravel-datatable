@@ -14,7 +14,7 @@ class Datatable
     /**
      * Extracts data from request, passes to datatable service and prepares data for response.
      * @param Model|Builder $mixed
-     * @param Request $request
+     * @param array $requestParameters
      * @param array $allowedFilters
      * @param array $allowedRelations
      * @param array $allowedSortings
@@ -24,7 +24,7 @@ class Datatable
      */
     public function run(
         Model|Builder $mixed,
-        Request       $request,
+        array         $requestParameters,
         array         $allowedFilters = [],
         array         $allowedRelations = [],
         array         $allowedSortings = [],
@@ -32,13 +32,13 @@ class Datatable
     ): array
     {
 
-        $filters = json_decode($request->filters);
-        $sorting = json_decode($request->sorting);
-        $rels = $request->rels ?: array();
+        $filters = json_decode($requestParameters['filters']);
+        $sorting = json_decode($requestParameters['sorting']);
+        $rels = array_key_exists('rels', $requestParameters) ? $requestParameters['rels'] : array();
 
         $dataTableInput = new DataTableInput(
-            $request->start,
-            $request->size,
+            $requestParameters['start'],
+            $requestParameters['size'],
             $filters,
             $sorting,
             $rels,
