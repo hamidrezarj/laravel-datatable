@@ -2,7 +2,6 @@
 
 namespace HamidRrj\LaravelDatatable\Sort;
 
-use HamidRrj\LaravelDatatable\Exceptions\InvalidSortingException;
 use HamidRrj\LaravelDatatable\Validators\SortingValidator;
 
 class Sort

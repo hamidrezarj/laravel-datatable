@@ -78,18 +78,19 @@ class DatatableService
 
         $query->offset($this->dataTableInput->getStart());
 
-        if(!is_null($this->dataTableInput->getSize())){
+        if (! is_null($this->dataTableInput->getSize())) {
             $query->limit($this->dataTableInput->getSize());
         }
 
         $sorting = $this->dataTableInput->getSorting();
         $query = (new ApplySort($query, $sorting))->apply();
+
         return $query;
     }
 
     protected function applySelect(Builder $query, array $selectedFields): Builder
     {
-        if (!empty($selectedFields)) {
+        if (! empty($selectedFields)) {
             $query->select($selectedFields);
         }
 
@@ -98,7 +99,7 @@ class DatatableService
 
     protected function includeRelationsInQuery(Builder $query, array $rels): Builder
     {
-        if (!empty($rels)) {
+        if (! empty($rels)) {
             $query->with($rels);
         }
 
