@@ -16,7 +16,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'username' => $this->faker->userName(),
             'email' => $this->faker->email,
-//            'position' => $this->faker->randomElement(['boss']),
+            'age' => $this->faker->numberBetween(1, 100),
 //            'city_id' => City::factory(),
 //            'province_id' => function (array $attributes) {
 //                return City::find($attributes['city_id'])->province_id;

@@ -14,7 +14,7 @@ It contains various search logics for different datatypes (numeric, text, date):
 5. Equals
 6. NotEquals
 
-You can add custom your own search logic and datatype with ease :)
+You can add your own search logic and datatype with ease :)
 
 ## Installation
 
@@ -77,7 +77,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Hamidreza Ranjbarpour](https://github.com/hamidrezaRanjbarpour)
+- [Hamidreza Ranjbarpour](https://github.com/hamidrezarj)
 - [All Contributors](../../contributors)
 
 ## License
