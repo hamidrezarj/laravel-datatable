@@ -6,7 +6,6 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 class FilterBetween extends SearchFilter
 {
-
     public function apply(): Builder
     {
         $query = $this->query;

@@ -10,7 +10,7 @@ class RelationValidator
     {
         foreach ($rels as $relation) {
 
-            if (!self::isAllowed($relation, $allowedRelations)) {
+            if (! self::isAllowed($relation, $allowedRelations)) {
                 throw new InvalidRelationException($relation, "relation `$relation` is not allowed.");
             }
         }
@@ -20,6 +20,6 @@ class RelationValidator
 
     public static function isAllowed(string $relation, array $allowedRelations): bool
     {
-        return !$relation || in_array($relation, $allowedRelations);
+        return ! $relation || in_array($relation, $allowedRelations);
     }
 }

@@ -7,11 +7,10 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 class FilterContains extends SearchFilter
 {
-
     public function apply(): Builder
     {
         $column = $this->filter->getId();
-        $value = '%' . $this->filter->getValue() . '%';
+        $value = '%'.$this->filter->getValue().'%';
 
         if ($this->filter->getDatatype() == DataType::TEXT->value) {
             $query = $this->searchIgnoreCase($column, $value);
@@ -26,6 +25,7 @@ class FilterContains extends SearchFilter
     private function searchIgnoreCase(string $column, string $value): Builder
     {
         $value = strtolower($value);
+
         return $this->query->whereRaw("LOWER($column) LIKE ?", [$value]);
     }
 }
