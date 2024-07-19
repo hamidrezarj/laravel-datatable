@@ -8,59 +8,63 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 class DatatableService
 {
-
     protected array $allowedFilters;
+
     protected array $allowedRelations;
+
     protected array $allowedSortings;
+
     protected array $allowedSelects;
+
     private int $totalRowCount;
 
     public function __construct(
-        protected Builder      $query,
+        protected Builder $query,
         private DatatableInput $dataTableInput
-    )
-    {
-    }
+    ) {}
 
     public function setAllowedFilters(array $allowedFilters): DatatableService
     {
         $this->allowedFilters = $allowedFilters;
+
         return $this;
     }
 
     public function setAllowedRelations(array $allowedRelations): DatatableService
     {
         $this->allowedRelations = $allowedRelations;
+
         return $this;
     }
 
     public function setAllowedSortings(array $allowedSortings): DatatableService
     {
         $this->allowedSortings = $allowedSortings;
+
         return $this;
     }
 
     public function setAllowedSelects(array $allowedSelects): DatatableService
     {
         $this->allowedSelects = $allowedSelects;
+
         return $this;
     }
 
     /**
      * Handle 'getData' operations
-     * @return array
      */
     public function getData(): array
     {
         $query = $this->buildQuery();
         $data = $query->get()->toArray();
 
-        return array(
+        return [
             'data' => $data,
             'meta' => [
-                'totalRowCount' => $this->totalRowCount
-            ]
-        );
+                'totalRowCount' => $this->totalRowCount,
+            ],
+        ];
     }
 
     protected function buildQuery(): Builder

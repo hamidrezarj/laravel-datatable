@@ -1,7 +1,7 @@
 <?php
 
-use \HamidRrj\LaravelDatatable\Tests\Models\User;
-use \HamidRrj\LaravelDatatable\Facades\DatatableFacade;
+use HamidRrj\LaravelDatatable\Facades\DatatableFacade;
+use HamidRrj\LaravelDatatable\Tests\Models\User;
 
 it('can get data with empty filters', function () {
 
@@ -13,7 +13,7 @@ it('can get data with empty filters', function () {
         'start' => 0,
         'size' => 10,
         'filters' => json_encode([]),
-        'sorting' => json_encode([])
+        'sorting' => json_encode([]),
     ];
 
     $data = DatatableFacade::run(
@@ -27,7 +27,6 @@ it('can get data with empty filters', function () {
     expect($data['meta']['totalRowCount'])
         ->toBe(5);
 
-
 });
 
 it('can get correct data with providing start and size arguments', function () {
@@ -40,7 +39,7 @@ it('can get correct data with providing start and size arguments', function () {
         'start' => 5,
         'size' => 8,
         'filters' => json_encode([]),
-        'sorting' => json_encode([])
+        'sorting' => json_encode([]),
     ];
 
     $data = DatatableFacade::run(
@@ -70,10 +69,10 @@ it('throws exception when trying to filter a field which is not allowed to be fi
                 'id' => 'username',
                 'value' => 'sth',
                 'fn' => 'contains',
-                'datatype' => 'text'
-            ]
+                'datatype' => 'text',
+            ],
         ]),
-        'sorting' => json_encode([])
+        'sorting' => json_encode([]),
     ];
 
     $data = DatatableFacade::run(
@@ -81,7 +80,7 @@ it('throws exception when trying to filter a field which is not allowed to be fi
         $requestParameters
     );
 
-})->throws(\HamidRrj\LaravelDatatable\Exceptions\InvalidFilterException::class, "filtering field `username` is not allowed.");
+})->throws(\HamidRrj\LaravelDatatable\Exceptions\InvalidFilterException::class, 'filtering field `username` is not allowed.');
 
 it('throws exception when provided filter fn is not defined and is invalid', function () {
 
@@ -95,13 +94,13 @@ it('throws exception when provided filter fn is not defined and is invalid', fun
                 'id' => 'username',
                 'value' => 'sth',
                 'fn' => 'sth',
-                'datatype' => 'text'
-            ]
+                'datatype' => 'text',
+            ],
         ]),
-        'sorting' => json_encode([])
+        'sorting' => json_encode([]),
     ];
 
-    $allowedFilters = array('username');
+    $allowedFilters = ['username'];
 
     $data = DatatableFacade::run(
         $query,
@@ -109,7 +108,7 @@ it('throws exception when provided filter fn is not defined and is invalid', fun
         $allowedFilters
     );
 
-})->throws(\HamidRrj\LaravelDatatable\Exceptions\InvalidFilterException::class, "search function `sth` is invalid.");
+})->throws(\HamidRrj\LaravelDatatable\Exceptions\InvalidFilterException::class, 'search function `sth` is invalid.');
 
 it('throws exception when provided filter datatype is not defined and is invalid', function () {
 
@@ -123,13 +122,13 @@ it('throws exception when provided filter datatype is not defined and is invalid
                 'id' => 'username',
                 'value' => 'sth',
                 'fn' => 'notEquals',
-                'datatype' => 'sth'
-            ]
+                'datatype' => 'sth',
+            ],
         ]),
-        'sorting' => json_encode([])
+        'sorting' => json_encode([]),
     ];
 
-    $allowedFilters = array('username');
+    $allowedFilters = ['username'];
 
     $data = DatatableFacade::run(
         $query,
@@ -137,7 +136,7 @@ it('throws exception when provided filter datatype is not defined and is invalid
         $allowedFilters
     );
 
-})->throws(\HamidRrj\LaravelDatatable\Exceptions\InvalidFilterException::class, "datatype `sth` is invalid.");
+})->throws(\HamidRrj\LaravelDatatable\Exceptions\InvalidFilterException::class, 'datatype `sth` is invalid.');
 
 it('can get correct data with providing filter fn:`contains` and datatype:`text`', function () {
 
@@ -149,7 +148,7 @@ it('can get correct data with providing filter fn:`contains` and datatype:`text`
         'start' => 5,
         'size' => 8,
         'filters' => json_encode([]),
-        'sorting' => json_encode([])
+        'sorting' => json_encode([]),
     ];
 
     $data = DatatableFacade::run(
@@ -166,7 +165,6 @@ it('can get correct data with providing filter fn:`contains` and datatype:`text`
         ->toBe(15);
 
 });
-
 
 // contains: text, numeric
 // equals: text, numeric, date
