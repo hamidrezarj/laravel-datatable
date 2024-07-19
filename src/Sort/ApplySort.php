@@ -12,8 +12,7 @@ class ApplySort
     public function __construct(
         private Builder $query,
         private ?Sort $sort,
-    ) {
-    }
+    ) {}
 
     public function apply(): Builder
     {

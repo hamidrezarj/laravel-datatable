@@ -16,17 +16,13 @@ class Sort
      */
     public function __construct(
         private string $id,
-        private bool   $desc,
+        private bool $desc,
         private array $allowedSortings,
-    )
-    {
+    ) {
         self::$sortingValidator = SortingValidator::getInstance();
         self::$sortingValidator->isValid($this, $this->allowedSortings);
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;

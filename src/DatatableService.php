@@ -8,19 +8,20 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 class DatatableService
 {
-
     protected array $allowedFilters;
+
     protected array $allowedRelations;
+
     protected array $allowedSortings;
+
     protected array $allowedSelects;
+
     private int $totalRowCount;
 
     public function __construct(
-        protected Builder      $query,
+        protected Builder $query,
         private DatatableInput $dataTableInput
-    )
-    {
-    }
+    ) {}
 
     public function setAllowedFilters(array $allowedFilters): DatatableService
     {
@@ -55,12 +56,12 @@ class DatatableService
         $query = $this->buildQuery();
         $data = $query->get()->toArray();
 
-        return array(
+        return [
             'data' => $data,
             'meta' => [
-                'totalRowCount' => $this->totalRowCount
-            ]
-        );
+                'totalRowCount' => $this->totalRowCount,
+            ],
+        ];
     }
 
     protected function buildQuery(): Builder

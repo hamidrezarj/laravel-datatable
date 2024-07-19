@@ -15,8 +15,7 @@ class DatatableInput
         private array $rels,
         private array $allowedFilters,
         private array $allowedSortings,
-    ) {
-    }
+    ) {}
 
     public function getStart(): int
     {

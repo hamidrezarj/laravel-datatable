@@ -20,8 +20,7 @@ class ApplyFilter
     public function __construct(
         private Builder $query,
         private Filter $filter,
-    ) {
-    }
+    ) {}
 
     public function apply(): Builder
     {
