@@ -53,7 +53,7 @@ class DatatableService
     public function getData(): array
     {
         $query = $this->buildQuery();
-        $data = $query->get();
+        $data = $query->get()->toArray();
 
         return array(
             'data' => $data,
