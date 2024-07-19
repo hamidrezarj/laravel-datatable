@@ -1,6 +1,6 @@
 {
     "name": "hamidrrj/laravel-datatable",
-    "description": "Laravel DataTable is a package for handling server-side work of any table-like data  with ease!",
+    "description": "Laravel Datatable is a package for handling server-side work of any table-like data  with ease!",
     "keywords": [
         "hamidRrj",
         "laravel",
@@ -11,8 +11,8 @@
     "authors": [
         {
             "name": "Hamidreza Ranjbarpour",
-            "email": "hamidranjbarpour771@gmail.com",
-            "role": "Developer"
+            "email": "hamidrezarrj@gmail.com",
+            "role": "Software Engineer"
         }
     ],
     "require": {
