@@ -822,14 +822,19 @@ it('can get data with descending sort on id', function (){
         allowedSortings: $allowedSortings
     );
 
-//    $expected = $users->sortBy('id', descending: true)->toArray();
     $expected = $users->toArray();
+    array_multisort( array_column($expected, "id"), SORT_DESC, $expected);
 
-    expect($data['data'])
-        ->toEqual($expected);
+    expect($data)
+        ->toEqual([
+            'data' => $expected,
+            'meta' => [
+                'totalRowCount' => 6
+            ]
+        ]);
 
     expect($data['meta']['totalRowCount'])
-        ->toBe(3);
+        ->toBe(6);
 });
 
 // contains: text, numeric DONE     :D
