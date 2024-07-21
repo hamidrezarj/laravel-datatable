@@ -794,7 +794,7 @@ it('throws exception when trying to sort a field which is not allowed to be sort
 
 })->throws(\HamidRrj\LaravelDatatable\Exceptions\InvalidSortingException::class, "sorting field `name` is not allowed.");
 
-it('can get data with descending sort on id', function (){
+it('can get data with descending sort on age', function (){
 
     $users = User::factory()
         ->count(6)
@@ -808,13 +808,13 @@ it('can get data with descending sort on id', function (){
         'filters' => json_encode([]),
         'sorting' => json_encode([
             [
-                'id' => 'id',
+                'id' => 'age',
                 'desc' => true,
             ]
         ])
     ];
 
-    $allowedSortings = array('id');
+    $allowedSortings = array('age');
 
     $data = DatatableFacade::run(
         $query,
@@ -823,15 +823,48 @@ it('can get data with descending sort on id', function (){
     );
 
     $expected = $users->toArray();
-    array_multisort( array_column($expected, "id"), SORT_DESC, $expected);
+    array_multisort( array_column($expected, "age"), SORT_DESC, $expected);
 
-    expect($data)
-        ->toEqual([
-            'data' => $expected,
-            'meta' => [
-                'totalRowCount' => 6
+    expect($data['data'])
+        ->toEqual($expected);
+
+    expect($data['meta']['totalRowCount'])
+        ->toBe(6);
+});
+
+it('can get data with ascending sort on age', function (){
+
+    $users = User::factory()
+        ->count(6)
+        ->create();
+
+    $query = User::query();
+
+    $requestParameters = [
+        'start' => 0,
+        'size' => 10,
+        'filters' => json_encode([]),
+        'sorting' => json_encode([
+            [
+                'id' => 'age',
+                'desc' => false,
             ]
-        ]);
+        ])
+    ];
+
+    $allowedSortings = array('age');
+
+    $data = DatatableFacade::run(
+        $query,
+        $requestParameters,
+        allowedSortings: $allowedSortings
+    );
+
+    $expected = $users->toArray();
+    array_multisort( array_column($expected, "age"), SORT_ASC, $expected);
+
+    expect($data['data'])
+        ->toEqual($expected);
 
     expect($data['meta']['totalRowCount'])
         ->toBe(6);
