@@ -1,6 +1,7 @@
 <?php
 
 use \HamidRrj\LaravelDatatable\Tests\Models\User;
+use \HamidRrj\LaravelDatatable\Tests\Models\Post;
 use \HamidRrj\LaravelDatatable\Facades\DatatableFacade;
 
 it('can get data with empty filters', function () {
@@ -794,7 +795,7 @@ it('throws exception when trying to sort a field which is not allowed to be sort
 
 })->throws(\HamidRrj\LaravelDatatable\Exceptions\InvalidSortingException::class, "sorting field `name` is not allowed.");
 
-it('can get data with descending sort on age', function (){
+it('can get data with descending sort on age', function () {
 
     $users = User::factory()
         ->count(6)
@@ -823,7 +824,7 @@ it('can get data with descending sort on age', function (){
     );
 
     $expected = $users->toArray();
-    array_multisort( array_column($expected, "age"), SORT_DESC, $expected);
+    array_multisort(array_column($expected, "age"), SORT_DESC, $expected);
 
     expect($data['data'])
         ->toEqual($expected);
@@ -832,7 +833,7 @@ it('can get data with descending sort on age', function (){
         ->toBe(6);
 });
 
-it('can get data with ascending sort on age', function (){
+it('can get data with ascending sort on age', function () {
 
     $users = User::factory()
         ->count(6)
@@ -861,13 +862,66 @@ it('can get data with ascending sort on age', function (){
     );
 
     $expected = $users->toArray();
-    array_multisort( array_column($expected, "age"), SORT_ASC, $expected);
+    array_multisort(array_column($expected, "age"), SORT_ASC, $expected);
 
     expect($data['data'])
         ->toEqual($expected);
 
     expect($data['meta']['totalRowCount'])
         ->toBe(6);
+});
+
+it("can get correct data with providing filter for model's relation with fn:`contains` and datatype:`text`", function () {
+
+    $expectedUsers = User::factory()
+        ->count(3)
+        ->has(Post::factory()
+            ->state(new \Illuminate\Database\Eloquent\Factories\Sequence(
+                ['title' => 'Wow! My post got 10k impressions'],
+            ))
+        )
+        ->create();
+
+    User::factory()
+        ->count(4)
+        ->has(Post::factory()
+            ->state(new \Illuminate\Database\Eloquent\Factories\Sequence(
+                ['title' => 'Lorem ipsum doler sit emet.'],
+            ))
+        )
+        ->create();
+
+    $query = User::query();
+
+    $requestParameters = [
+        'start' => 0,
+        'size' => 10,
+        'filters' => json_encode([
+            [
+                'id' => 'posts.title',
+                'value' => 'my post',
+                'fn' => 'contains',
+                'datatype' => 'text'
+            ]
+        ]),
+        'sorting' => json_encode([])
+    ];
+
+    $allowedFilters = array('posts.title');
+
+    $data = DatatableFacade::run(
+        $query,
+        $requestParameters,
+        $allowedFilters
+    );
+
+    $expected = $expectedUsers->toArray();
+
+    expect($data['data'])
+        ->toEqual($expected);
+
+    expect($data['meta']['totalRowCount'])
+        ->toBe(3);
 });
 
 // contains: text, numeric DONE     :D
@@ -878,4 +932,4 @@ it('can get data with ascending sort on age', function (){
 
 //sorting
 // filter with rel
-// sorting with rel
+// include relations test :)
