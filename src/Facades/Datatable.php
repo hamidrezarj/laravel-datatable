@@ -13,21 +13,28 @@ class Datatable
 {
     /**
      * Extracts data from request, passes to datatable service and prepares data for response.
-     *
+     * @param Model|Builder $mixed
+     * @param array $requestParameters
+     * @param array $allowedFilters
+     * @param array $allowedRelations
+     * @param array $allowedSortings
+     * @param array $allowedSelects
+     * @return array
      * @throws InvalidParameterInterface if input parameters are invalid.
      */
     public function run(
         Model|Builder $mixed,
-        array $requestParameters,
-        array $allowedFilters = [],
-        array $allowedRelations = [],
-        array $allowedSortings = [],
-        array $allowedSelects = []
-    ): array {
+        array         $requestParameters,
+        array         $allowedFilters = [],
+        array         $allowedRelations = [],
+        array         $allowedSortings = [],
+        array         $allowedSelects = []
+    ): array
+    {
 
         $filters = json_decode($requestParameters['filters']);
         $sorting = json_decode($requestParameters['sorting']);
-        $rels = array_key_exists('rels', $requestParameters) ? $requestParameters['rels'] : [];
+        $rels = array_key_exists('rels', $requestParameters) ? $requestParameters['rels'] : array();
 
         $dataTableInput = new DataTableInput(
             $requestParameters['start'],

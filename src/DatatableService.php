@@ -26,33 +26,30 @@ class DatatableService
     public function setAllowedFilters(array $allowedFilters): DatatableService
     {
         $this->allowedFilters = $allowedFilters;
-
         return $this;
     }
 
     public function setAllowedRelations(array $allowedRelations): DatatableService
     {
         $this->allowedRelations = $allowedRelations;
-
         return $this;
     }
 
     public function setAllowedSortings(array $allowedSortings): DatatableService
     {
         $this->allowedSortings = $allowedSortings;
-
         return $this;
     }
 
     public function setAllowedSelects(array $allowedSelects): DatatableService
     {
         $this->allowedSelects = $allowedSelects;
-
         return $this;
     }
 
     /**
      * Handle 'getData' operations
+     * @return array
      */
     public function getData(): array
     {

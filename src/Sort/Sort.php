@@ -9,6 +9,9 @@ class Sort
     private static SortingValidator $sortingValidator;
 
     /**
+     * @param string $id
+     * @param bool $desc
+     * @param array $allowedSortings
      * @throws InvalidSortingException
      */
     public function __construct(
