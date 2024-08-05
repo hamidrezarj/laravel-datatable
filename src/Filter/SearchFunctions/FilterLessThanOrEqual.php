@@ -9,7 +9,7 @@ class FilterLessThanOrEqual extends SearchFilter
 {
     public function apply(): Builder
     {
-        $value = ($this->filter->getDatatype() == DataType::NUMERIC) ?
+        $value = ($this->filter->getDatatype() == DataType::NUMERIC->value) ?
             (float) $this->filter->getValue() : $this->filter->getValue();
 
         return $this->query->where($this->filter->getId(), '<=', $value);

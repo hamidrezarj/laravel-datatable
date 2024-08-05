@@ -55,7 +55,7 @@ class FilterValidator
     {
         $searchFunction = $filter->getFn();
 
-        return isset($searchFunction) && in_array($searchFunction, SearchType::values());
+        return $searchFunction && in_array($searchFunction, SearchType::values());
     }
 
     protected function isValidDataType(Filter $filter): int
