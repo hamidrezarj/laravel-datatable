@@ -2,6 +2,7 @@
 
 namespace HamidRrj\LaravelDatatable;
 
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -16,6 +17,12 @@ class DatatableServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-datatable')
-            ->hasConfigFile();
+            ->hasConfigFile()
+            ->publishesServiceProvider('DatatableServiceProvider')
+            ->hasInstallCommand(function(InstallCommand $command){
+                $command
+                    ->copyAndRegisterServiceProviderInApp()
+                    ->askToStarRepoOnGitHub('hamidrezarj/laravel-datatable');
+            });
     }
 }

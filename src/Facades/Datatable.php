@@ -32,15 +32,15 @@ class Datatable
     ): array
     {
 
-        $filters = json_decode($requestParameters['filters']);
-        $sorting = json_decode($requestParameters['sorting']);
+//        $filters = json_decode($requestParameters['filters']);
+//        $sorting = json_decode($requestParameters['sorting']);
         $rels = array_key_exists('rels', $requestParameters) ? $requestParameters['rels'] : array();
 
         $dataTableInput = new DataTableInput(
             $requestParameters['start'],
             $requestParameters['size'],
-            $filters,
-            $sorting,
+            $requestParameters['filters'],
+            $requestParameters['sorting'],
             $rels,
             $allowedFilters,
             $allowedSortings

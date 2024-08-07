@@ -11,6 +11,6 @@ class DatatableFacade extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \HamidRrj\LaravelDatatable\Facades\Datatable::class;
+        return 'datatable';
     }
 }

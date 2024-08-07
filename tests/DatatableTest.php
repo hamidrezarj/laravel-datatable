@@ -1,8 +1,8 @@
 <?php
 
+use HamidRrj\LaravelDatatable\Facades\Datatable;
 use \HamidRrj\LaravelDatatable\Tests\Models\User;
 use \HamidRrj\LaravelDatatable\Tests\Models\Post;
-use \HamidRrj\LaravelDatatable\Facades\DatatableFacade;
 
 it('can get data with empty filters', function () {
 
@@ -13,11 +13,11 @@ it('can get data with empty filters', function () {
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([]),
-        'sorting' => json_encode([])
+        'filters' => [],
+        'sorting' => []
     ];
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters
     );
@@ -40,11 +40,11 @@ it('can get correct data with providing start and size arguments', function () {
     $requestParameters = [
         'start' => 5,
         'size' => 8,
-        'filters' => json_encode([]),
-        'sorting' => json_encode([])
+        'filters' => [],
+        'sorting' => []
     ];
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters
     );
@@ -66,18 +66,18 @@ it('throws exception when trying to filter a field which is not allowed to be fi
     $requestParameters = [
         'start' => 5,
         'size' => 8,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'username',
                 'value' => 'sth',
                 'fn' => 'contains',
                 'datatype' => 'text'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters
     );
@@ -91,20 +91,20 @@ it('throws exception when provided filter fn is not defined and is invalid', fun
     $requestParameters = [
         'start' => 5,
         'size' => 8,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'username',
                 'value' => 'sth',
                 'fn' => 'sth',
                 'datatype' => 'text'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('username');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -119,20 +119,20 @@ it('throws exception when provided filter datatype is not defined and is invalid
     $requestParameters = [
         'start' => 5,
         'size' => 8,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'username',
                 'value' => 'sth',
                 'fn' => 'notEquals',
                 'datatype' => 'sth'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('username');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -159,20 +159,20 @@ it('can get correct data with providing filter fn:`contains` and datatype:`text`
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'name',
                 'value' => 'first',
                 'fn' => 'contains',
                 'datatype' => 'text'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('name');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -213,20 +213,20 @@ it('can get correct data with providing filter fn:`contains` and datatype:`numer
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'age',
                 'value' => '3',
                 'fn' => 'contains',
                 'datatype' => 'numeric'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('age');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -261,20 +261,20 @@ it('can get correct data with providing filter fn:`equals` and datatype:`text`',
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'name',
                 'value' => 'first user',
                 'fn' => 'equals',
                 'datatype' => 'text'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('name');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -310,20 +310,20 @@ it('can get correct data with providing filter fn:`equals` and datatype:`numeric
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'age',
                 'value' => '13',
                 'fn' => 'equals',
                 'datatype' => 'numeric'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('age');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -357,20 +357,20 @@ it('can get correct data with providing filter fn:`equals` and datatype:`date`',
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'created_at',
                 'value' => '2024-05-23 12:00:00',
                 'fn' => 'equals',
                 'datatype' => 'date'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('created_at');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -406,20 +406,20 @@ it('can get correct data with providing filter fn:`notEquals` and datatype:`text
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'name',
                 'value' => 'First User',
                 'fn' => 'notEquals',
                 'datatype' => 'text'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('name');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -454,20 +454,20 @@ it('can get correct data with providing filter fn:`notEquals` and datatype:`nume
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'age',
                 'value' => '13',
                 'fn' => 'notEquals',
                 'datatype' => 'numeric'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('age');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -501,20 +501,20 @@ it('can get correct data with providing filter fn:`notEquals` and datatype:`date
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'created_at',
                 'value' => '2024-05-23 12:00:00',
                 'fn' => 'notEquals',
                 'datatype' => 'date'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('created_at');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -550,20 +550,20 @@ it('can get correct data with providing filter fn:`between` and datatype:`numeri
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'age',
                 'value' => ['30', '50'],
                 'fn' => 'between',
                 'datatype' => 'numeric'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('age');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -597,20 +597,20 @@ it('can get correct data with providing filter fn:`between` and datatype:`date`'
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'created_at',
                 'value' => ['2024-05-23 10:30:00', '2024-05-23 15:00:00'],
                 'fn' => 'between',
                 'datatype' => 'date'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('created_at');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -646,20 +646,20 @@ it('can get correct data with providing filter fn:`greaterThan` and datatype:`nu
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'age',
                 'value' => '25',
                 'fn' => 'greaterThan',
                 'datatype' => 'numeric'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('age');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -693,20 +693,20 @@ it('can get correct data with providing filter fn:`greaterThan` and datatype:`da
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'created_at',
                 'value' => '2024-05-23 23:59:59',
                 'fn' => 'greaterThan',
                 'datatype' => 'date'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('created_at');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -742,20 +742,20 @@ it('can get correct data with providing filter fn:`lessThan` and datatype:`numer
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'age',
                 'value' => '25',
                 'fn' => 'lessThan',
                 'datatype' => 'numeric'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('age');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters
@@ -779,16 +779,16 @@ it('throws exception when trying to sort a field which is not allowed to be sort
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([]),
-        'sorting' => json_encode([
+        'filters' => [],
+        'sorting' => [
             [
                 'id' => 'name',
                 'desc' => true,
             ]
-        ])
+        ]
     ];
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
     );
@@ -806,18 +806,18 @@ it('can get data with descending sort on age', function () {
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([]),
-        'sorting' => json_encode([
+        'filters' => [],
+        'sorting' => [
             [
                 'id' => 'age',
                 'desc' => true,
             ]
-        ])
+        ]
     ];
 
     $allowedSortings = array('age');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         allowedSortings: $allowedSortings
@@ -844,18 +844,18 @@ it('can get data with ascending sort on age', function () {
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([]),
-        'sorting' => json_encode([
+        'filters' => [],
+        'sorting' => [
             [
                 'id' => 'age',
                 'desc' => false,
             ]
-        ])
+        ]
     ];
 
     $allowedSortings = array('age');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         allowedSortings: $allowedSortings
@@ -896,20 +896,20 @@ it("can get correct data with providing filter for model's relation with fn:`con
     $requestParameters = [
         'start' => 0,
         'size' => 10,
-        'filters' => json_encode([
+        'filters' => [
             [
                 'id' => 'posts.title',
                 'value' => 'my post',
                 'fn' => 'contains',
                 'datatype' => 'text'
             ]
-        ]),
-        'sorting' => json_encode([])
+        ],
+        'sorting' => []
     ];
 
     $allowedFilters = array('posts.title');
 
-    $data = DatatableFacade::run(
+    $data = (new Datatable())->run(
         $query,
         $requestParameters,
         $allowedFilters

@@ -36,10 +36,10 @@ class DatatableInput
 
         foreach ($this->filters as $filter) {
             $filters[] = new Filter(
-                $filter->id,
-                $filter->value,
-                $filter->fn,
-                $filter->datatype,
+                $filter['id'],
+                $filter['value'],
+                $filter['fn'],
+                $filter['datatype'],
                 $this->allowedFilters
             );
         }
@@ -50,7 +50,7 @@ class DatatableInput
     public function getSorting(): ?Sort
     {
         return ! empty($this->sorting) ?
-            new Sort($this->sorting[0]->id, $this->sorting[0]->desc, $this->allowedSortings) : null;
+            new Sort($this->sorting[0]['id'], $this->sorting[0]['desc'], $this->allowedSortings) : null;
     }
 
     public function getRelations(): array
