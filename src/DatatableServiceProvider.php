@@ -17,7 +17,6 @@ class DatatableServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-datatable')
-            ->hasConfigFile()
             ->publishesServiceProvider('DatatableServiceProvider')
             ->hasInstallCommand(function(InstallCommand $command){
                 $command

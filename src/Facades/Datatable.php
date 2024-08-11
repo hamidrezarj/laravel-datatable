@@ -26,9 +26,9 @@ class Datatable
         Model|Builder $mixed,
         array         $requestParameters,
         array         $allowedFilters = [],
-        array         $allowedRelations = [],
         array         $allowedSortings = [],
-        array         $allowedSelects = []
+        array         $allowedSelects = [],
+        array         $allowedRelations = [],
     ): array
     {
 
