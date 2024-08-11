@@ -7,7 +7,6 @@ use \HamidRrj\LaravelDatatable\Tests\Models\Post;
 it('can get data with empty filters', function () {
 
     $users = User::factory()->count(5)->create();
-
     $query = User::query();
 
     $requestParameters = [
@@ -19,6 +18,33 @@ it('can get data with empty filters', function () {
 
     $data = (new Datatable())->run(
         $query,
+        $requestParameters
+    );
+
+    expect($data['data'])
+        ->toEqual($users->toArray());
+
+    expect($data['meta']['totalRowCount'])
+        ->toBe(5);
+
+
+});
+
+it('can get data using model instance instead of query builder', function () {
+
+    $users = User::factory()->count(5)->create();
+
+    $userModel = new User();
+
+    $requestParameters = [
+        'start' => 0,
+        'size' => 10,
+        'filters' => [],
+        'sorting' => []
+    ];
+
+    $data = (new Datatable())->run(
+        $userModel,
         $requestParameters
     );
 
