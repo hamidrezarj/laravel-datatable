@@ -605,7 +605,7 @@ it('can get correct data with providing filter fn:`between` and datatype:`numeri
 
 });
 
-it('can get correct data with providing filter fn:`between` and datatype:`date`', function () {
+it('can get correct data with providing filter fn:`between` and datatype:`date` with selecting only specific columns', function () {
 
     $expectedUsers = User::factory()
         ->count(5)
@@ -635,14 +635,16 @@ it('can get correct data with providing filter fn:`between` and datatype:`date`'
     ];
 
     $allowedFilters = array('created_at');
+    $allowedSelects = array('username', 'email', 'age');
 
     $data = (new Datatable())->run(
         $query,
         $requestParameters,
-        $allowedFilters
+        $allowedFilters,
+        allowedSelects: $allowedSelects
     );
 
-    $expected = $expectedUsers->toArray();
+    $expected = $expectedUsers->map->only($allowedSelects)->toArray();
 
     expect($data['data'])
         ->toEqual($expected);
@@ -959,3 +961,4 @@ it("can get correct data with providing filter for model's relation with fn:`con
 //sorting
 // filter with rel
 // include relations test :)
+// allowed select test
