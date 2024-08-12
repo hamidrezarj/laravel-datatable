@@ -56,6 +56,66 @@ return [
 
 ## Usage
 
+This section covers various use cases and features of Laravel Datatable. From basic querying to advanced filtering and relationship handling, you'll find examples to help you make the most of this package.
+
+### Table of Contents
+- [Method Parameters](#method-parameters)
+- [Filter Array Structure](#filter-array-structure)
+- [Return Data Structure](#return-data-structure)
+- [Basic Usage](#basic-usage)
+- [Using Query Builder](#using-query-builder)
+- [Advanced Filtering and Sorting](#advanced-filtering-and-sorting)
+- [Using `between` Search Function](#using-between-search-function)
+- [Filtering Model's Relationship](#filtering-models-relationship)
+
+### Method Parameters
+
+The `run` method of `DatatableFacade` accepts the following parameters:
+
+1. `$mixed`: Model instance or query builder instance to perform queries on.
+2. `$requestParameters`: Contains parameters like `filter`, `sorting`, `size`, and `start` of required data.
+3. `$allowedFilters`: (Optional) Specifies columns users are allowed to filter on.
+4. `$allowedSortings`: (Optional) Specifies columns users are allowed to sort on.
+5. `$allowedSelects`: (Optional) Specifies which columns users can actually see.
+6. `$allowedRelations`: (Optional) Specifies which model relations users are allowed to filter on.
+
+### Filter Array Structure
+
+Each filter in the `filters` array should have the following attributes:
+
+- `id`: Name of the column to filter on. When filtering a relationship's attribute, use the format: `relationName.attribute`. (`relationName` must exist as a `HasOne` or `HasMany` relationship in the base Model, e.g., User model)
+- `value`: Value of the filter
+    - For most filter types: a single value
+    - For `fn = 'between'`: an array of two values, e.g., `[min, max]`
+- `fn`: Type of filter to apply. Available options include:
+    - `contains`
+    - `between`
+    - `equals`
+    - `notEquals`
+    - `lessThan`
+    - `lessThanOrEqual`
+    - `greaterThan`
+    - `greaterThanOrEqual`
+- `datatype`: Type of column. Options include:
+    - `text`
+    - `numeric`
+    - `date`
+
+### Return Data Structure
+
+The `run` method returns an array with the following structure:
+
+```php
+[
+    "data" => [
+        // Array of matching records
+    ],
+    "meta" => [
+        "totalRowCount" => 10 // Total count of matching records
+    ]
+]
+```
+
 ### Basic Usage
 
 Here's a simple example of requesting a chunk of 10 users starting from the 11th record (i.e., page 2 of the datatable):
@@ -90,17 +150,19 @@ $data = DatatableFacade::run(
 ```
 
 ### Advanced Filtering and Sorting
-Here's an example of filtering users whose usernames contain 'sth', sorted by creation date in descending order:
+Here's an example of filtering users whose ages are greater than 15, sorted by creation date in descending order:
 ```php
+$query = User::query();
+
 $requestParameters = [
     'start' => 10,
     'size' => 10,
     'filters' => [
         [
-            'id' => 'username',
-            'value' => 'sth',
-            'fn' => 'contains',
-            'datatype' => 'text'
+            'id' => 'age',
+            'value' => 15,
+            'fn' => 'greaterThan',
+            'datatype' => 'numeric'
         ]
     ],
     'sorting' => [
@@ -111,7 +173,7 @@ $requestParameters = [
     ]
 ];
 
-$allowedFilters = ['username'];
+$allowedFilters = ['age'];
 $allowedSortings = ['created_at'];
 
 $data = DatatableFacade::run(
@@ -123,29 +185,99 @@ $data = DatatableFacade::run(
 ```
 **Note**: Ensure that columns used for filtering and sorting are included in the `$allowedFilters` and `$allowedSortings` arrays to avoid `InvalidFilterException` and `InvalidSortingException`.
 
-### Method Parameters
-The `run` method of `DatatableFacade` accepts the following parameters:
+### Using `between` search function
+Here's an example of filtering users whose creation dates are between two dates:
+```php
+$query = User::query()
 
-1. `$mixed`: Model instance or query builder instance to perform queries on.
-2. `$requestParameters`: Contains parameters like `filter`, `sorting`, `size`, and `start` of required data.
-3. `$allowedFilters`: (Optional) Specifies columns users are allowed to filter on.
-4. `$allowedSortings`: (Optional) Specifies columns users are allowed to sort on.
-5. `$allowedSelects`: (Optional) Specifies which columns users can actually see.
-6. `$allowedRelations`: (Optional) Specifies which model relations users are allowed to filter on.
+$requestParameters = [
+        'start' => 0,
+        'size' => 10,
+        'filters' => [
+            [
+                'id' => 'created_at',
+                'value' => ['2024-05-23 10:30:00', '2024-05-29 15:00:00'],
+                'fn' => 'between',
+                'datatype' => 'date'
+            ]
+        ],
+        'sorting' => []
+    ];
 
-### Filter Array Structure
-Each filter in the `filters` array should have the following attributes:
-- `id`: Name of the column to filter on
-- `value`: Value of the filter
-- `fn`: Type of filter to apply (e.g., contains, between, equals, less than)
-- `datatype`: Type of column (e.g., text, numeric, date)
+$allowedFilters = array('created_at');
+$allowedSelects = array('username', 'age', 'created_at');
 
-### Return Data Structure
-The `run` method returns an array with the following structure:
+$data = (new Datatable())->run(
+    $query,
+    $requestParameters,
+    $allowedFilters,
+    allowedSelects: $allowedSelects
+);
+```
+**Note**: Using `$allowedSelects` will only return specified columns in the query result:
 ```php
 [
     "data" => [
-        // Array of matching records
+        [
+            'username' => 'mwindler'
+            'age' => 49
+            'created_at' => '2024-05-23T12:00:00.000000Z' 
+        ],
+        // more matching records
+    ],
+    "meta" => [
+        "totalRowCount" => 10 // Total count of matching records
+    ]
+]
+```
+
+### Filtering Model's Relationship
+In this example, we filter only users who have posts that contain 'my post' in their titles:
+
+```php
+$query = User::query();
+
+$requestParameters = [
+    'start' => 0,
+    'size' => 10,
+    'filters' => [
+        [
+            'id' => 'posts.title',
+            'value' => 'my post',
+            'fn' => 'contains',
+            'datatype' => 'text'
+        ]
+    ],
+    'sorting' => []
+];
+
+$allowedFilters = array('posts.title');
+$allowedRelations = array('posts');
+
+$data = (new Datatable())->run(
+    $query,
+    $requestParameters,
+    $allowedFilters,
+    allowedRelations: $allowedRelations
+);
+```
+**Note**: 
+- Use `posts.title` in `id` (the User model must have a `posts` relation defined in `Models/User` class)
+- Using `$allowedRelations` loads each user's posts in the query result:
+```php
+[
+    "data" => [
+        [
+            'id' => 1,
+            'username' => 'sth', 
+            'posts' => [  // posts included in result
+                [
+                    'title' => 'wow! my post got 1k impressions!'
+                ], 
+                // ...
+            ]
+        ],
+        // more matching records
     ],
     "meta" => [
         "totalRowCount" => 10 // Total count of matching records
