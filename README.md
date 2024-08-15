@@ -1,9 +1,9 @@
 # Laravel Datatable
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/hamidrezarj/laravel-datatable.svg?style=flat-square)](https://packagist.org/packages/hamidrezarj/laravel-datatable)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hamidrrj/laravel-datatable.svg?style=flat-square)](https://packagist.org/packages/hamidrrj/laravel-datatable)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/hamidrezarj/laravel-datatable/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/hamidrezarj/laravel-datatable/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/hamidrezarj/laravel-datatable/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/hamidrezarj/laravel-datatable/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/hamidrezarj/laravel-datatable.svg?style=flat-square)](https://packagist.org/packages/hamidrezarj/laravel-datatable)
+[![Total Downloads](https://img.shields.io/packagist/dt/hamidrrj/laravel-datatable.svg?style=flat-square)](https://packagist.org/packages/hamidrrj/laravel-datatable)
 
 Laravel Datatable is a package designed to handle server-side logic for datatables in Laravel applications. <br>
 
@@ -15,6 +15,10 @@ Laravel Datatable is a package designed to handle server-side logic for datatabl
 - Fine-grained control over searchable, sortable, and visible fields
 - Ability to search through model relationships
 - Customizable search logic (coming soon!)
+
+## Requirements
+- PHP ≥ 8.1
+- Laravel ≥ 9.0
 
 ## Installation
 
