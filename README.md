@@ -16,6 +16,10 @@ Laravel Datatable is a package designed to handle server-side logic for datatabl
 - Ability to search through model relationships
 - Customizable search logic (coming soon!)
 
+## Requirements
+- PHP ≥ 8.1
+- Laravel ≥ 9.0
+
 ## Installation
 
 You can install the package via composer:
