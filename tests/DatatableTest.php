@@ -827,6 +827,14 @@ it('can get data with descending sort on age', function () {
 
     $users = User::factory()
         ->count(6)
+        ->sequence(
+            ['age' => '17'],
+            ['age' => '71'],
+            ['age' => '46'],
+            ['age' => '28'],
+            ['age' => '54'],
+            ['age' => '33'],
+        )
         ->create();
 
     $query = User::query();
@@ -865,6 +873,14 @@ it('can get data with ascending sort on age', function () {
 
     $users = User::factory()
         ->count(6)
+        ->sequence(
+            ['age' => '17'],
+            ['age' => '71'],
+            ['age' => '46'],
+            ['age' => '28'],
+            ['age' => '54'],
+            ['age' => '33'],
+        )
         ->create();
 
     $query = User::query();
